@@ -6,7 +6,7 @@ export default createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
   }
-  html {
+  html, body, #root  {
     min-height: 100%;
     background: var(--primary);
   }

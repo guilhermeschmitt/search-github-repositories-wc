@@ -1,22 +1,42 @@
-import React from 'react';
+import { Button } from 'antd';
+import React, { useCallback, useRef } from 'react';
 
-import Input from '../../components/Input';
-import Button from '../../components/Button';
-import { Container, Title, SearchIcon, SearchAction } from './styles';
+import { Routes } from '../../routes/Routes';
+import { Container, Text, SearchIcon, SearchAction, StyledInput } from './styles';
 
-function SearchRepositoryPage() {
+
+function SearchRepositoryPage(props) {
+
+  const searchInput = useRef(null);
+
+  const search = useCallback(() => {
+    const { value } = searchInput.current.state;
+
+    if (!value || value.trim() === '')
+      alert('Digite alguma coisa no campo de busca!');
+    else
+      props.history.push(`${Routes.repositoriesList.path}?q=${value}`);
+  })
+
   return (
     <Container>
-      <Title>
-        <SearchIcon />
-            Search more than <b>186M</b> repositories
-        </Title>
+      <Text>
+        <SearchIcon /> Enter the name of the repository you want to search below
+      </Text>
       <SearchAction>
-        <Input />
-        <Button />
+        <StyledInput
+          ref={searchInput}
+          placeholder='ex. react'
+        />
+        <Button
+          type='primary'
+          onClick={search}
+        >
+          Buscar
+        </Button>
       </SearchAction>
     </Container>
-  )
+  );
 }
 
 export default SearchRepositoryPage;

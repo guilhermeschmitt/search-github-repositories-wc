@@ -1,31 +1,56 @@
-import React, { useState } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import React from 'react';
 import { ThemeProvider } from 'styled-components';
+import { BrowserRouter, Switch } from 'react-router-dom';
 
+import useCommon from './hooks/Common';
 import { Routes } from './routes/Routes';
-import Header from './components/Header';
-import GlobalStyle from './styles/global';
 import { themes } from './styles/themes';
+import GlobalStyle from './styles/global';
 import RepositoryPage from './pages/RepositoryPage';
 import SearchRepositoryPage from './pages/SearchRepositoryPage';
 import RepositoriesListPage from './pages/RepositoriesListPage';
 import FavRepositoriesListPage from './pages/FavRepositoriesListPage';
 
+import 'antd/dist/antd.css';
+import PrivateRoute from './routes/PrivateRoute';
+
 function App() {
 
-  const [themeName, setThemeName] = useState('light');
+  const { themeName } = useCommon();
   const currentTheme = themes[themeName];
+
+  //FIXME: Acho que vou tirar aquele spin e aquele loading do common
 
   return (
     <ThemeProvider theme={currentTheme}>
-      <BrowserRouter>
-        <Header
-          themeName={themeName}
-          setThemeName={setThemeName}
+      <Switch>
+        <PrivateRoute
+          exact
+          renderSearchHeader={false}
+          component={SearchRepositoryPage}
+          path={Routes.searchRepository.path}
+          title={Routes.searchRepository.title}
         />
-        <SearchRepositoryPage />
-        <GlobalStyle />
-      </BrowserRouter>
+        <PrivateRoute
+          exact
+          component={RepositoriesListPage}
+          path={Routes.repositoriesList.path}
+          title={Routes.repositoriesList.title}
+        />
+        <PrivateRoute
+          exact
+          component={FavRepositoriesListPage}
+          path={Routes.favRepositoriesList.path}
+          title={Routes.favRepositoriesList.title}
+        />
+        <PrivateRoute
+          exact
+          component={RepositoryPage}
+          path={Routes.repository.path}
+          title={Routes.repository.title}
+        />
+      </Switch>
+      <GlobalStyle />
     </ThemeProvider>
   );
 }

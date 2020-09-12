@@ -1,27 +1,35 @@
+import { Input } from 'antd';
 import styled from 'styled-components';
-import { FaSearch } from 'react-icons/fa';
+import { SearchOutlined } from '@ant-design/icons';
 
 export const Container = styled.div`
-  widht: 100%;
-  margin: 40px;
-  padding: 40px;
+  margin: 80px;
   display: flex;
   align-items: center;
   flex-direction: column;
+  justify-content: center;
 `;
 
-export const Title = styled.div`
+export const Text = styled.div`
   font-size: 24px;
   line-height: 1.5;
   word-wrap: break-word;
+`
 
-  > b {
-    font-weight: 600;
-  }
-`;
-
-export const SearchIcon = styled(FaSearch)`
+export const SearchIcon = styled(SearchOutlined)`
   margin-right: 5px;
-  vertical-align: text-bottom;
 `;
-export const SearchAction = styled.div``;
+
+export const SearchAction = styled.div`
+  display: flex;
+  padding-top: 15px;
+  align-items: center;
+`;
+
+export const StyledInput = styled(Input)`
+  width: 318px;
+  padding: 7px 12px;
+  margin-right: 15px;
+  border-radius: 6px;
+  transition: width 0.2s ease-out, color 0.2s ease-out;
+`;

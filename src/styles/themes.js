@@ -1,6 +1,9 @@
 export const themes = {
   light: {
     primary: '#fff',
+    blue: '#0984e3',
+
+
     black: '#1b1f23',
     gray: '#586069',
     'gray-light': '#6a737d',
@@ -29,6 +32,8 @@ export const themes = {
   },
   dark: {
     primary: '#1D1D1D',
+    blue: '#0984e3',
+
     black: '#c6c6c6',
     gray: '#afafaf',
     'gray-light': '#6a737d',
