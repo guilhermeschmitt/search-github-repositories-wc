@@ -6,12 +6,30 @@ export default createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
   }
-  body {
-    color: white;
-    background: #666;
-    font: 400 16px Roboto, sans-serif;
+  html {
+    min-height: 100%;
+    background: var(--primary);
+  }
+  *, button, input {
+    border: 0;
+    background: none;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+    color: var(--black);
+    transition: color .2s ease-out;
+  }
+  ul {
+    list-style: none;
+  }
+  :root {
+    ${props => {
+      const theme = props.theme;
+      let append = '';
+
+      Object.entries(theme).forEach(([prop, value]) => {
+        append += `--${prop}: ${value};`;
+      });
+
+      return append;
+    }}
   }
 `
-
-// background: ${props => props.theme.colors.background};
-// color: ${props => props.theme.colors.text};
