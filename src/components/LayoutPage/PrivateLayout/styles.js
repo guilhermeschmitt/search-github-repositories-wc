@@ -1,14 +1,5 @@
-import { Layout, Spin } from 'antd';
+import { Layout } from 'antd';
 import styled from 'styled-components';
-
-export const SpinWrapper = styled(Spin)`
-  .ant-spin-nested-loading {
-    min-height: 100%;
-    .ant-spin-container {
-      min-height: 100%;
-    }
-  }
-`;
 
 export const ContainerLayout = styled(Layout)`
   min-height: 100vh;

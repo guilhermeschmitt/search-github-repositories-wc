@@ -2,6 +2,7 @@ export const themes = {
   light: {
     primary: '#fff',
     blue: '#0984e3',
+    yellow: '#f1c40f',
 
 
     black: '#1b1f23',
@@ -33,6 +34,7 @@ export const themes = {
   dark: {
     primary: '#1D1D1D',
     blue: '#0984e3',
+    yellow: '#f1c40f',
 
     black: '#c6c6c6',
     gray: '#afafaf',

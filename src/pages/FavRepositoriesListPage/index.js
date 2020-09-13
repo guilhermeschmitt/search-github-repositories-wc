@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Divider } from 'antd';
 
 import { Container, Title } from './styles';
@@ -24,13 +24,5 @@ function FavRepositoriesListPage() {
     </Container>
   )
 }
-{/* <div>
-<div>
-  Seus favoritos
-</div>
-<div>
-  COMPONENTE DE PAGINAÇÃO -> FAVORITOS
-</div>
-</div> */}
 
 export default FavRepositoriesListPage;

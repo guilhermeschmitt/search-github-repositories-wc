@@ -1,6 +1,6 @@
 import React from 'react';
+import { Switch } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
-import { BrowserRouter, Switch } from 'react-router-dom';
 
 import useCommon from './hooks/Common';
 import { Routes } from './routes/Routes';

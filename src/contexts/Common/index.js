@@ -1,54 +1,54 @@
-import React, { createContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 
 const CommonContext = createContext({});
 
 export const CommonProvider = ({ children }) => {
 
-  const [loading, setLoading] = useState(false);
   const [favorites, setFavorites] = useState([]);
+  const [repoResume, setRepoResume] = useState({});
   const [themeName, setThemeName] = useState('light');
 
-  //TODO: Guardar no local storage
-  const handleThemeName = () => setThemeName(themeName === 'light' ? 'dark' : 'light');
+  useEffect(() => {
+    setFavorites(JSON.parse(localStorage.getItem('favorites')) || []);
+    setThemeName(localStorage.getItem('theme') || 'light');
+  }, [])
 
+  const handleThemeName = () => {
+    const themeSelected = themeName === 'light' ? 'dark' : 'light';
 
-  //   useEffect(() => {
+    setThemeName(themeSelected);
+    localStorage.setItem('theme', themeSelected);
+  }
 
-  //     if (storageUser && storageToken) {
-  //         setUser(storageUser);
-  //         // api.defaults.headers.Authorization = `Baerer ${storagedToken}`;
-  //     }
-  //     setLoading(false);
-  // }, []);
+  const handleFavorites = repository => {
+    let arrFav = [];
+    let isPresent = favorites.find(el => el.id === repository.id);
 
+    if (isPresent)
+      arrFav = favorites.filter(el => el.id !== repository.id);
+    else
+      arrFav = [...favorites, repository];
 
-  // const signIn = useCallback( async () => {
+    setFavorites(arrFav);
+    localStorage.setItem('favorites', JSON.stringify(arrFav));
+  }
 
-  //     setLoading(true);
-  //     const response = await signInService();
-  //     setUser(response.user);
-  //     // api.defaults.headers.Authorization = `Baerer ${response.token}`;
-  //     setStorageUser(response.user);
-  //     setStorageToken(response.token);
-  //     setLoading(false);
-  // }, []);
+  const isFavorite = repository => {
+    //FIXME: Quando isso aqui é executado, não tem buscado ainda os favoritos;
 
-
-  // const signOut = useCallback( () => {
-
-  //     setLoading(true);
-  //     removeStorageUser();
-  //     removeStorageToken()
-  //     setUser({});
-  //     setLoading(false);
-  // }, []);
+    let isPresent = favorites.find(el => el.id === repository.id);
+    return isPresent;
+  }
 
   return (
     <CommonContext.Provider
       value={{
-        loading,
         themeName,
         favorites,
+        repoResume,
+        isFavorite,
+        setRepoResume,
+        handleFavorites,
         handleThemeName,
       }}
     >

@@ -16,7 +16,7 @@ function SearchRepositoryPage(props) {
       alert('Digite alguma coisa no campo de busca!');
     else
       props.history.push(`${Routes.repositoriesList.path}?q=${value}`);
-  })
+  }, []);
 
   return (
     <Container>

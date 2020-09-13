@@ -1,27 +1,26 @@
 import React from 'react'
-import { Empty, Pagination } from 'antd';
+import { Empty, List, Pagination } from 'antd';
+import RepositoryCard from '../RepositoryCard';
 
 function RepositoryList({ total, data, onChange }) {
-  if (total === 0)
-    return (
-      <Empty />
-    );
+  if (data.length === 0)
+    return <Empty />;
 
   return (
-    <div>
-      {
-        data.map(el => (
-          <div>
-            TESTE
-          </div>
-        ))
+    <List
+      dataSource={data}
+      itemLayout='horizontal'
+      renderItem={item => (
+        <RepositoryCard repository={item} />
+      )}
+      loadMore={
+        <Pagination
+          total={total}
+          defaultCurrent={1}
+          onChange={onChange}
+        />
       }
-      <Pagination
-        total={total}
-        defaultCurrent={1}
-        onChange={onChange}
-      />
-    </div>
+    />
   )
 }
 

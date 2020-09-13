@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import { Routes } from '../../routes/Routes';
 
 import {
@@ -14,10 +14,16 @@ import {
 
 function Header({ setThemeName, renderSearchHeader, history }) {
 
-  const [search, setSearch] = useState('');
+  const seachInputHeader = useRef('');
 
-  function handleSubmit() {
-    console.log('TODO: talvez usar ref ao invés de um estado');
+  function handleSubmit(event) {
+    event.preventDefault();
+    const { value } = seachInputHeader.current.state;
+
+    if (!value || value.trim() === '')
+      alert('Digite alguma coisa no campo de busca!');
+    else
+      history.push(`${Routes.repositoriesList.path}?q=${value}`);
   }
 
   return (
@@ -27,9 +33,8 @@ function Header({ setThemeName, renderSearchHeader, history }) {
         {
           renderSearchHeader &&
           <SearchInput
-            value={search}
-            placeholder="Enter Username or Repo..."
-            onChange={(e) => setSearch(e.currentTarget.value)}
+            ref={seachInputHeader}
+            placeholder="Enter Repository name..."
           />
         }
       </SearchForm>

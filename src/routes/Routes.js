@@ -11,7 +11,7 @@ const _Route = class {
 };
 
 const Routes = {
-  repository: new _Route({ path: '/repository/:idRepository(\\d+)' }),
+  repository: new _Route({ path: '/repository/:userName/:repoName' }),
   searchRepository: new _Route({ path: '/', title: 'Search repositories' }),
   repositoriesList: new _Route({ path: '/repositories', title: 'Repositories' }),
   favRepositoriesList: new _Route({ path: '/repositories/favorites', title: 'Favorites repositories' })
