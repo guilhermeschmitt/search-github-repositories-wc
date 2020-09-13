@@ -15,13 +15,15 @@ class RepositoryService {
       url: ` https://api.github.com/repos/${userName}/${repoName}`,
     }).then(response => response.data);
 
-  // buscarAliquotaISS = idAliquota =>
-  //   this.service({
-  //     method: 'GET',
-  //     url: `${this.urlBaseAliquota}/${idAliquota}`,
-  //     json: true,
-  //     headers: { 'Content-Type': 'application/json' },
-  //   }).then(response => response.data);
+  //FIXME: No backend local eu mando query e pageSize
+  searchRepositories = (q, page, per_page) =>
+    this.service({
+      json: true,
+      method: 'GET',
+      params: { q, page, per_page },
+      headers: { 'Content-Type': 'application/json' },
+      url: ` https://api.github.com/search/repositories`,
+    }).then(response => response.data);
 
 }
 

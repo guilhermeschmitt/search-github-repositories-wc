@@ -9,7 +9,6 @@ import useCommon from '../../hooks/Common';
 function FavRepositoriesListPage() {
 
   const { favorites } = useCommon();
-
   return (
     <Container>
       <Title>
@@ -17,9 +16,9 @@ function FavRepositoriesListPage() {
       </Title>
       <Divider />
       <RepositoryList
+        total={null}
         data={favorites}
-        total={favorites.length}
-        onChange={() => alert('TODO:')}
+        onChange={() => {}}
       />
     </Container>
   )

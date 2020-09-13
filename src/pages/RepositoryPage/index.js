@@ -1,5 +1,6 @@
+import qs from 'query-string';
 import { Col, Divider, Row, Avatar } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 
 import {
   Container,
@@ -63,6 +64,17 @@ function RepositoryPage(props) {
     else
       findUserRepositories();
   }, [repoResume]);
+
+  const onChangePage = useCallback(async (page, pageSize) => {
+    try {
+      const { userName } = props.match.params;
+      const value = await UserService.getUserRepositories(userName, page, pageSize);
+
+      setPageInfo(prevState => ({ ...prevState, repositories: value }));
+    } catch (error) {
+      alert(error);
+    }
+  }, []);
 
   const languageClass = pageInfo?.repository?.language ? pageInfo?.repository.language.toLowerCase() : 'other';
 
@@ -181,8 +193,8 @@ function RepositoryPage(props) {
           <Row>
             <Col span={24}>
               <RepositoryList
+                onChange={onChangePage}
                 data={pageInfo?.repositories}
-                onChange={() => alert("TODO:")}
                 total={pageInfo?.user?.public_repos}
               />
             </Col>
