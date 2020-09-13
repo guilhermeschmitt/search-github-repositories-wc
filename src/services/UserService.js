@@ -7,13 +7,23 @@ class UserService {
 
   service = Service.getInstance();
 
-  // buscarAliquotaISS = idAliquota =>
-  //   this.service({
-  //     method: 'GET',
-  //     url: `${this.urlBaseAliquota}/${idAliquota}`,
-  //     json: true,
-  //     headers: { 'Content-Type': 'application/json' },
-  //   }).then(response => response.data);
+  //FIXME: No back-end local eu mando pageSize
+  getUserRepositories = (userName, page, pageSize) =>
+    this.service({
+      json: true,
+      method: 'GET',
+      params: { page, per_page: pageSize },
+      headers: { 'Content-Type': 'application/json' },
+      url: ` https://api.github.com/users/${userName}/repos`,
+    }).then(response => response.data);
+
+  getUserInfo = userName =>
+    this.service({
+      json: true,
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+      url: ` https://api.github.com/users/${userName}`,
+    }).then(response => response.data);
 
 }
 

@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 import useCommon from '../../../hooks/Common';
 import { Routes } from '../../../routes/Routes';
+import { formatDateToDateString } from '../../../Utils/DateUtils';
 
 import {
   Container,
@@ -76,7 +77,12 @@ function RepositoryCard({ repository, history }) {
           </ContentInfo>
           <ContentInfo>
             <span>
-              {repository?.updated_at}
+              Last update:
+              {
+                repository?.updated_at
+                  ? ` ${formatDateToDateString(repository.updated_at)}`
+                  : ' Uninformed.'
+              }
             </span>
           </ContentInfo>
         </Content>

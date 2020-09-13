@@ -3,6 +3,7 @@ export const themes = {
     primary: '#fff',
     blue: '#0984e3',
     yellow: '#f1c40f',
+    white: '#f5f6fa',
 
 
     black: '#1b1f23',
@@ -35,6 +36,7 @@ export const themes = {
     primary: '#1D1D1D',
     blue: '#0984e3',
     yellow: '#f1c40f',
+    white: '#f5f6fa',
 
     black: '#c6c6c6',
     gray: '#afafaf',

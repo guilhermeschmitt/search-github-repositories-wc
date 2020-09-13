@@ -1,9 +1,7 @@
-import { Button } from 'antd';
 import React, { useCallback, useRef } from 'react';
 
 import { Routes } from '../../routes/Routes';
-import { Container, Text, SearchIcon, SearchAction, StyledInput } from './styles';
-
+import { Container, Text, SearchIcon, SearchAction, StyledInput, Button } from './styles';
 
 function SearchRepositoryPage(props) {
 
@@ -28,10 +26,7 @@ function SearchRepositoryPage(props) {
           ref={searchInput}
           placeholder='ex. react'
         />
-        <Button
-          type='primary'
-          onClick={search}
-        >
+        <Button onClick={search}>
           Buscar
         </Button>
       </SearchAction>

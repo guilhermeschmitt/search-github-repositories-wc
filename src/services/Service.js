@@ -10,9 +10,12 @@ class Service {
 
   getInstance() {
     if (!this.instance) {
-      const baseURL = this.getBaseUrl();
+      //FIXME: Descomentar quando for chamar do back-end
+      // const baseURL = this.getBaseUrl();
 
-      this.instance = axios.create({ baseURL });
+      // this.instance = axios.create({ baseURL });
+      this.instance = axios.create();
+
       this.instance.interceptors.response.use(this.successInterceptor, this.errorInterceptor);
 
       return this.instance;

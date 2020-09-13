@@ -33,3 +33,22 @@ export const StyledInput = styled(Input)`
   border-radius: 6px;
   transition: width 0.2s ease-out, color 0.2s ease-out;
 `;
+
+export const Button = styled.button`
+    border: none;
+    outline: none;
+    margin-left: 0;
+    font-size: 16px;
+    cursor: pointer;
+    margin-right: 0;
+    font-weigth: bold;
+    padding: 5px 15px;
+    border-radius: 6px;
+    color: var(--white);
+    line-height: 1.625em;
+    background: var(--blue);
+
+    &:hover, &:focus {
+      opacity: .8;
+    }
+`;
