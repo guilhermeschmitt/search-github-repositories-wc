@@ -12,8 +12,9 @@ function RepositoryList({ total, data, onChange, loading }) {
     <RepoList
       dataSource={data}
       itemLayout='horizontal'
-      renderItem={item => (
+      renderItem={(item, index) => (
         <RepositoryCard
+          index={index}
           repository={item}
           favorite={item.favorite}
         />

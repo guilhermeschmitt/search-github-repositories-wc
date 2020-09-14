@@ -20,7 +20,7 @@ import {
   FavoriteContainer
 } from './styles';
 
-function RepositoryCard({ repository, favorite, history }) {
+function RepositoryCard({ repository, favorite, history, index }) {
 
   const { handleFavorites, setRepoResume } = useCommon();
 
@@ -63,6 +63,7 @@ function RepositoryCard({ repository, favorite, history }) {
             </TextLink>
           </div>
           <FavoriteContainer
+            id={`id${index}`}
             onClick={handleFavorite}
             className={`${repoFav ? 'favorite' : ''}`}
           >

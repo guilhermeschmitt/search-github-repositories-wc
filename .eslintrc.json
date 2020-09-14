@@ -18,7 +18,8 @@
     },
     "plugins": [
         "react",
-        "prettier"
+        "prettier",
+        "cypress"
     ],
     "rules": {
         "prettier/prettier": "error",

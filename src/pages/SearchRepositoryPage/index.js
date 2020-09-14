@@ -12,7 +12,7 @@ function SearchRepositoryPage(props) {
     const { value } = searchInput.current.state;
 
     if (!value || value.trim() === '')
-      message.warning('Digite alguma coisa no campo de busca!');
+      message.warning('Type something in the search field!');
     else
       props.history.push(`${Routes.repositoriesList.path}?q=${value}`);
   }, []);
@@ -24,11 +24,16 @@ function SearchRepositoryPage(props) {
       </Text>
       <SearchAction>
         <StyledInput
+          id='searchInput'
           ref={searchInput}
           placeholder='ex. react'
         />
-        <Button onClick={search}>
-          Buscar
+        <Button
+          title='Search'
+          onClick={search}
+          id='searchButton'
+        >
+          Search
         </Button>
       </SearchAction>
     </Container>

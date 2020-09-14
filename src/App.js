@@ -20,17 +20,6 @@ function App() {
   const { themeName } = useCommon();
   const currentTheme = themes[themeName];
 
-  /*
-    TODO: FALTA FAZER
-      READ ME
-      EXPLICAR COMO RODA O SISTEMA
-
-    TODO: OUTROS OPCIONAIS
-      DOCKER
-      CYPRESS
-      RESPONSIVIDADE
-  */
-
   return (
     <ThemeProvider theme={currentTheme}>
       <Switch>
