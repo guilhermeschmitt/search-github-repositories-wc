@@ -6,20 +6,26 @@ class UserService {
 
   service = Service.getInstance();
 
+  // params: { page, pageSize },
+  // url: `${this.urlBase}/${userName}/repositories`,
+
+  // https://api.github.com/users/facebook/repos?page=1&per_page=10
   getUserRepositories = (userName, page, pageSize) =>
     this.service({
       json: true,
       method: 'GET',
-      params: { page, pageSize },
+      params: { page, per_page: pageSize },
       headers: { 'Content-Type': 'application/json' },
-      url: `${this.urlBase}/${userName}/repositories`,
+      url: `https://api.github.com/users/${userName}/repos`,
     }).then(response => response.data);
 
+
+  // url: `${this.urlBase}/${userName}`,
   getUserInfo = userName =>
     this.service({
       json: true,
       method: 'GET',
-      url: `${this.urlBase}/${userName}`,
+      url: `https://api.github.com/users/${userName}`,
       headers: { 'Content-Type': 'application/json' },
     }).then(response => response.data);
 

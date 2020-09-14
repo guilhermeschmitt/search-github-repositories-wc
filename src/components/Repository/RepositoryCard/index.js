@@ -15,7 +15,9 @@ import {
   ContentInfo,
   StarIcon,
   Language,
-  SkeletonWrapper
+  SkeletonWrapper,
+  FavoriteIcon,
+  FavoriteContainer
 } from './styles';
 
 function RepositoryCard({ repository, history }) {
@@ -50,20 +52,27 @@ function RepositoryCard({ repository, history }) {
     >
       <Container>
         <Header>
-          <RepositoryIcon />
-          <TextLink onClick={pushToResume}>
-            {repository?.full_name}
-          </TextLink>
+          <div>
+            <RepositoryIcon />
+            <TextLink onClick={pushToResume}>
+              {repository?.full_name}
+            </TextLink>
+          </div>
+          <FavoriteContainer
+            onClick={handleFavorite}
+            className={`${repoFav ? 'favorite' : ''}`}
+          >
+            <FavoriteIcon />
+            <span>
+              Favorite
+            </span>
+          </FavoriteContainer>
         </Header>
         <Description>
           {repository?.description}
         </Description>
         <Content>
-          <ContentInfo
-            onClick={handleFavorite}
-            title='Click to favorite!'
-            className={`clickable ${repoFav ? 'favorite' : ''}`}
-          >
+          <ContentInfo>
             <StarIcon />
             <span>
               {repository?.stargazers_count}

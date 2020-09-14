@@ -6,18 +6,34 @@ import useCommon from './hooks/Common';
 import { Routes } from './routes/Routes';
 import { themes } from './styles/themes';
 import GlobalStyle from './styles/global';
+import PrivateRoute from './routes/PrivateRoute';
 import RepositoryPage from './pages/RepositoryPage';
 import SearchRepositoryPage from './pages/SearchRepositoryPage';
 import RepositoriesListPage from './pages/RepositoriesListPage';
 import FavRepositoriesListPage from './pages/FavRepositoriesListPage';
 
 import 'antd/dist/antd.css';
-import PrivateRoute from './routes/PrivateRoute';
 
 function App() {
 
   const { themeName } = useCommon();
   const currentTheme = themes[themeName];
+
+  /*
+    TODO: FALTA FAZER
+      READ ME
+      EXPLICAR COMO RODA O SISTEMA
+
+    TODO: BUGS
+      Autenticação pra não da problema de rating
+      Não verifica se repositório está favoritado ou não
+      Quando tento buscar por exemplo o repo .github do facebook da erro.
+
+    TODO: OUTROS OPCIONAIS
+      DOCKER
+      CYPRESS
+      RESPONSIVIDADE
+  */
 
   return (
     <ThemeProvider theme={currentTheme}>

@@ -3,8 +3,12 @@ import RestException from './RestException';
 export default class ResponseErrorHandler {
   static handle(error) {
     const { message, response } = error;
+    const messageFormated = message.match(/(\[)(\{\"message.+\n)?(])/g);
 
-    //FIXME: O 403 eu to colocando hard coded, ideal seria vir do server;
+    if (messageFormated && messageFormated.length === 1) {
+      messageFormated = JSON.parse(messageFormated);
+      message = messageFormated.message;
+    }
 
     if (message === 'Network Error')
       throw new RestException(503, 'Servidor indisponível temporariamente');
@@ -20,7 +24,7 @@ export default class ResponseErrorHandler {
       else
         throw new RestException(response.status, response.data);
     } else if (response.status === 403)
-      throw new RestException(403, 'Limite de requisições da API excedido, tente novamente mais tarde.');
+      throw new RestException(response.status, response.data.message);
     else if (response.status === 410)
       throw new RestException(410, 'Link inválido ou expirado');
   }

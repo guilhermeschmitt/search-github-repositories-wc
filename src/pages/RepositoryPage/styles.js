@@ -1,6 +1,6 @@
 import { Col } from 'antd';
 import styled from 'styled-components';
-import { TeamOutlined, StarOutlined, EyeOutlined, WarningOutlined, HeartOutlined } from '@ant-design/icons';
+import { TeamOutlined, StarOutlined, EyeOutlined, WarningOutlined, HeartFilled } from '@ant-design/icons';
 
 export const Profile = styled.div`
   display: flex;
@@ -78,9 +78,26 @@ export const Name = styled.span`
   margin-bottom: 5px;
 `;
 
+export const FavIcon = styled(HeartFilled)`
+  margin-right: 5px;
+`;
+
+export const FavColumn = styled(Col)`
+  &:hover {
+    opacity: .8;
+    cursor: pointer;
+  }
+  &.favorite {
+    span {
+      color: var(--red);
+    } svg {
+      fill: var(--red);
+    }
+  }
+`;
+
 export const Container = styled.div``;
 export const StarIcon = styled(StarOutlined)``;
-export const FavIcon = styled(HeartOutlined)``;
 export const WatcherIcon = styled(EyeOutlined)``;
 export const FollowerIcon = styled(TeamOutlined)``;
 export const IssueIcon = styled(WarningOutlined)``;

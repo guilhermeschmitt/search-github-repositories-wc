@@ -31,6 +31,9 @@ export const StyledInput = styled(Input)`
   padding: 7px 12px;
   margin-right: 15px;
   border-radius: 6px;
+  color: var(--black);
+  border-color: var(--border);
+  background: var(--inputsearch);
   transition: width 0.2s ease-out, color 0.2s ease-out;
 `;
 

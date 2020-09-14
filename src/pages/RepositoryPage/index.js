@@ -1,5 +1,5 @@
-import { Col, Divider, Row, Avatar, Skeleton } from 'antd';
 import React, { useEffect, useState, useCallback } from 'react';
+import { Col, Divider, Row, Avatar, Skeleton, message } from 'antd';
 
 import {
   Container,
@@ -9,13 +9,14 @@ import {
   WatcherIcon,
   IssueIcon,
   FavIcon,
+  FavColumn,
   IconColumn,
   NameColumn,
   InfoColumn,
   Descriptioncolumn,
   Language,
   Title,
-  Name
+  Name,
 } from './styles';
 import useCommon from '../../hooks/Common';
 import { formatDateToDateString } from '../../Utils/DateUtils';
@@ -28,6 +29,7 @@ function RepositoryPage(props) {
 
   const [pageInfo, setPageInfo] = useState({
     loading: true,
+    repoFav: true,
     user: undefined,
     repositories: [],
     repository: undefined,
@@ -43,9 +45,10 @@ function RepositoryPage(props) {
           UserService.getUserRepositories(userName, 1, 10)
         ]);
 
-        setPageInfo({ repository, user, repositories, loading: false, });
+        //FIXME: repoFav
+        setPageInfo({ repoFav: true, repository, user, repositories, loading: false, });
       } catch (error) {
-        alert(error);
+        message.error(error.message);
         setPageInfo(prevState => ({ ...prevState, loading: false }));
       }
     }
@@ -60,7 +63,7 @@ function RepositoryPage(props) {
 
         setPageInfo({ repositories, user, repository: repoResume, loading: false })
       } catch (error) {
-        alert(error);
+        message.error(error.message);
         setPageInfo(prevState => ({ ...prevState, loading: false }));
       }
     }
@@ -69,19 +72,25 @@ function RepositoryPage(props) {
       findPageInfo();
     else
       findUserRepositories();
-  }, []);
+  }, [props.match.params]);
 
   const onChangePage = useCallback(async (page, pageSize) => {
     try {
       const { userName } = props.match.params;
+      setPageInfo(prevState => ({ ...prevState, loading: true }));
+
       const value = await UserService.getUserRepositories(userName, page, pageSize);
 
       setPageInfo(prevState => ({ ...prevState, repositories: value, loading: false }));
     } catch (error) {
-      alert(error);
+      message.error(error.message);
       setPageInfo(prevState => ({ ...prevState, loading: false }));
     }
   }, []);
+
+  const handleFavorite = useCallback(() => {
+    alert("TODO:");
+  });
 
   const languageClass = pageInfo?.repository?.language ? pageInfo?.repository.language.toLowerCase() : 'other';
 
@@ -157,12 +166,16 @@ function RepositoryPage(props) {
                     label='Open issues'
                   />
                 </IconColumn>
-                <IconColumn span={4}>
+                <FavColumn
+                  span={4}
+                  onClick={handleFavorite}
+                  className={`${pageInfo.repoFav ? 'favorite' : ''}`}
+                >
                   <FavIcon />
                   <span>
                     Favorite
-              </span>
-                </IconColumn>
+                  </span>
+                </FavColumn>
               </Row>
               <Row
                 gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}

@@ -1,7 +1,7 @@
 import React from 'react'
-import { Empty, Pagination } from 'antd';
+import { Empty } from 'antd';
 
-import { RepoList } from './styles';
+import { RepoList, PaginationWrapper } from './styles';
 import RepositoryCard from '../RepositoryCard';
 
 function RepositoryList({ total, data, onChange, loading }) {
@@ -15,7 +15,7 @@ function RepositoryList({ total, data, onChange, loading }) {
       renderItem={item => <RepositoryCard repository={item} />}
       loadMore={
         total &&
-        <Pagination
+        <PaginationWrapper
           total={total}
           defaultCurrent={1}
           onChange={onChange}

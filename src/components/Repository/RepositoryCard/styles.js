@@ -1,6 +1,6 @@
 import { Skeleton } from 'antd';
 import styled from 'styled-components';
-import { BookOutlined, StarOutlined } from '@ant-design/icons';
+import { BookOutlined, HeartFilled, StarOutlined } from '@ant-design/icons';
 
 export const Container = styled.div`
   margin: 1rem 0;
@@ -22,9 +22,29 @@ export const Container = styled.div`
 export const Header = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
 `;
 
 export const RepositoryIcon = styled(BookOutlined)``;
+
+export const FavoriteContainer = styled.div`
+  &:hover {
+    opacity: .8;
+    cursor: pointer;
+  }
+
+  &.favorite {
+    span {
+      color: var(--red);
+    } svg {
+      fill: var(--red);
+    }
+  }
+`;
+
+export const FavoriteIcon = styled(HeartFilled)`
+  margin-right: 5px;
+`;
 
 export const TextLink = styled.a`
   margin-left: 8px;
@@ -59,18 +79,6 @@ export const ContentInfo = styled.div`
     margin-left: 5px;
     font-size: 12px;
     color: var(--gray);
-  }
-
-  &.favorite {
-    span {
-      color: var(--yellow);
-    } svg {
-      fill: var(--yellow);
-    }
-  }
-
-  &.clickable:hover {
-    opacity: .5;
   }
 `;
 

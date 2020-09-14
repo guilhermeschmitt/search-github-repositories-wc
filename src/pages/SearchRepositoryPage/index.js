@@ -1,3 +1,4 @@
+import { message } from 'antd';
 import React, { useCallback, useRef } from 'react';
 
 import { Routes } from '../../routes/Routes';
@@ -11,7 +12,7 @@ function SearchRepositoryPage(props) {
     const { value } = searchInput.current.state;
 
     if (!value || value.trim() === '')
-      alert('Digite alguma coisa no campo de busca!');
+      message.warning('Digite alguma coisa no campo de busca!');
     else
       props.history.push(`${Routes.repositoriesList.path}?q=${value}`);
   }, []);

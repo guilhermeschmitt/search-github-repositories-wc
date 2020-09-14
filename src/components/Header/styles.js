@@ -34,7 +34,7 @@ export const SearchInput = styled(Input)`
     padding: 7px 12px;
     color: var(--logo);
     border-radius: 6px;
-    background: var(--search);
+    background: var(--input);
     transition: width 0.2s ease-out, color 0.2s ease-out;
 `;
 

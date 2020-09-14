@@ -1,8 +1,8 @@
 import qs from 'query-string';
-import { Divider } from 'antd';
+import { Divider, message } from 'antd';
 import React, { useEffect, useState, useCallback } from 'react';
 
-import { Container } from './styles';
+import { Container, Text } from './styles';
 import useCommon from '../../hooks/Common';
 import RepositoryList from '../../components/Repository/RepositoryList';
 import RepositoryService from '../../services/RepositoryService';
@@ -27,7 +27,7 @@ function RepositoriesListPage(props) {
           items: items.map(el => ({ ...el, favorite: isFavorite(el) })),
         });
       } catch (error) {
-        alert(error);
+        message.error(error.message);
         setRepoList(prevState => ({ ...prevState, loading: false }));
       }
     }
@@ -49,20 +49,20 @@ function RepositoriesListPage(props) {
         items: items.map(el => ({ ...el, favorite: isFavorite(el) }))
       });
     } catch (error) {
-      alert(error);
+      message.error(error.message);
       setRepoList(prevState => ({ ...prevState, loading: false }));
     }
   }, []);
 
   return (
     <Container>
-      <div>
+      <Text>
         {
           repoList.loading
             ? 'Carregando...'
-            : `${repoList.total} repository results`
+            : `${repoList.total} results`
         }
-      </div>
+      </Text>
       <Divider />
       <RepositoryList
         total={repoList.total}

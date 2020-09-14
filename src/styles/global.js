@@ -17,6 +17,31 @@ export default createGlobalStyle`
     color: var(--black);
     transition: color .2s ease-out;
   }
+  .ant-divider-horizontal {
+    border-top-color: var(--black);
+  }
+
+  .ant-message-notice {
+    span {
+      color: #000;
+    }
+    .ant-message-success {
+      svg {
+        fill: #52c41a;
+      }
+    }
+    .ant-message-warning {
+      svg {
+        fill: #faad14;
+      }
+    }
+    .ant-message-error {
+      svg {
+        fill: #ff4d4f;
+      }
+    }
+  }
+
   ul {
     list-style: none;
   }

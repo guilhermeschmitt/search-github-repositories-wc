@@ -1,3 +1,4 @@
+import { message } from 'antd';
 import React, { useRef } from 'react';
 import { Routes } from '../../routes/Routes';
 
@@ -21,7 +22,7 @@ function Header({ setThemeName, renderSearchHeader, history }) {
     const { value } = seachInputHeader.current.state;
 
     if (!value || value.trim() === '')
-      alert('Digite alguma coisa no campo de busca!');
+      message.warning('Digite alguma coisa no campo de busca!');
     else
       history.push(`${Routes.repositoriesList.path}?q=${value}`);
   }
