@@ -1,6 +1,6 @@
 import { Col } from 'antd';
 import styled from 'styled-components';
-import { TeamOutlined, StarOutlined, EyeOutlined, WarningOutlined, HeartFilled } from '@ant-design/icons';
+import { TeamOutlined, StarOutlined, EyeOutlined, WarningOutlined, HeartFilled, ForkOutlined } from '@ant-design/icons';
 
 export const Profile = styled.div`
   display: flex;
@@ -101,3 +101,4 @@ export const StarIcon = styled(StarOutlined)``;
 export const WatcherIcon = styled(EyeOutlined)``;
 export const FollowerIcon = styled(TeamOutlined)``;
 export const IssueIcon = styled(WarningOutlined)``;
+export const ForkIcon = styled(ForkOutlined)``;

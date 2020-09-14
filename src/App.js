@@ -6,6 +6,7 @@ import useCommon from './hooks/Common';
 import { Routes } from './routes/Routes';
 import { themes } from './styles/themes';
 import GlobalStyle from './styles/global';
+import NotFoundPage from './pages/NotFoundPage';
 import PrivateRoute from './routes/PrivateRoute';
 import RepositoryPage from './pages/RepositoryPage';
 import SearchRepositoryPage from './pages/SearchRepositoryPage';
@@ -23,9 +24,6 @@ function App() {
     TODO: FALTA FAZER
       READ ME
       EXPLICAR COMO RODA O SISTEMA
-
-    TODO: BUGS
-      Quando tento buscar por exemplo o repo .github do facebook da erro.
 
     TODO: OUTROS OPCIONAIS
       DOCKER
@@ -60,6 +58,10 @@ function App() {
           component={RepositoryPage}
           path={Routes.repository.path}
           title={Routes.repository.title}
+        />
+        <PrivateRoute
+          title='Error - 404'
+          component={NotFoundPage}
         />
       </Switch>
       <GlobalStyle />

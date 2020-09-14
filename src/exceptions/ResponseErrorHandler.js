@@ -2,8 +2,8 @@ import RestException from './RestException';
 
 export default class ResponseErrorHandler {
   static handle(error) {
-    const { message, response } = error;
-    const messageFormated = message.match(/(\[)(\{\"message.+\n)?(])/g);
+    let { message, response } = error;
+    let messageFormated = message.match(/(\[)(\{\"message.+\n)?(])/g);
 
     if (messageFormated && messageFormated.length === 1) {
       messageFormated = JSON.parse(messageFormated);

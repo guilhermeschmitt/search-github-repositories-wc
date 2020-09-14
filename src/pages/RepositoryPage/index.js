@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Col, Divider, Row, Avatar, Skeleton, message } from 'antd';
+import NotFoundPage from '../NotFoundPage';
 
 import {
   Container,
   Profile,
+  ForkIcon,
   FollowerIcon,
   StarIcon,
   WatcherIcon,
@@ -55,7 +57,11 @@ function RepositoryPage(props) {
         });
       } catch (error) {
         message.error(error.message);
-        setPageInfo(prevState => ({ ...prevState, loading: false }));
+        setPageInfo(prevState => ({
+          ...prevState,
+          loading: false,
+          repository: { ...prevState.repository, error: true },
+        }));
       }
     }
 
@@ -118,6 +124,9 @@ function RepositoryPage(props) {
 
   const languageClass = pageInfo?.repository?.language ? pageInfo?.repository.language.toLowerCase() : 'other';
 
+  if (pageInfo?.repository?.error)
+    return <NotFoundPage />;
+
   return (
     <Container>
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
@@ -156,7 +165,7 @@ function RepositoryPage(props) {
             <>
               <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                 <IconColumn span={4}>
-                  <FollowerIcon />
+                  <ForkIcon />
                   <IconInfo
                     value={pageInfo?.repository?.forks_count || 0}
                     label='Forks'

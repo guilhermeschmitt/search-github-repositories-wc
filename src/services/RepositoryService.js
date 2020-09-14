@@ -7,27 +7,24 @@ class RepositoryService {
 
   service = Service.getInstance();
 
-  // ${this.urlBase}/${userName}/${repoName}
-
-  getRepository = (userName, repoName) =>
+  getRepository = (userName, repository) =>
     this.service({
       json: true,
       method: 'GET',
-      url: `https://api.github.com/repos/${userName}/${repoName}`,
+      params: { repository },
+      url: `${this.urlBase}/${userName}`,
       headers: { 'Content-Type': 'application/json' },
     }).then(response => response.data);
 
 
-  // url: `${this.urlBaseList}`,
-  // params: { query, page, pageSize },
-    searchRepositories = (query, page, pageSize) =>
-      this.service({
-        json: true,
-        method: 'GET',
-        url: `https://api.github.com/search/repositories`,
-        params: { q: query, page, per_page: pageSize },
-        headers: { 'Content-Type': 'application/json' },
-      }).then(response => response.data);
+  searchRepositories = (query, page, pageSize) =>
+    this.service({
+      json: true,
+      method: 'GET',
+      url: `${this.urlBaseList}`,
+      params: { query, page, pageSize },
+      headers: { 'Content-Type': 'application/json' },
+    }).then(response => response.data);
 
 }
 

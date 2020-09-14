@@ -9,7 +9,8 @@ import RepositoryService from '../../services/RepositoryService';
 
 function RepositoriesListPage(props) {
 
-  const { isFavorite, favorites } = useCommon();
+  const { isFavorite } = useCommon();
+
   const [repoList, setRepoList] = useState({
     total: 0,
     items: [],
