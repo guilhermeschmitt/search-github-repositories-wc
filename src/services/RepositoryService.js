@@ -2,8 +2,8 @@ import Service from './Service';
 
 class RepositoryService {
 
-  urlBase = 'TODO:';
-  urlBaseList = 'TODO:';
+  urlBase = '/repository';
+  urlBaseList = '/repositories';
 
   service = Service.getInstance();
 
@@ -11,18 +11,17 @@ class RepositoryService {
     this.service({
       json: true,
       method: 'GET',
+      url: `${this.urlBase}/${userName}/${repoName}`,
       headers: { 'Content-Type': 'application/json' },
-      url: ` https://api.github.com/repos/${userName}/${repoName}`,
     }).then(response => response.data);
 
-  //FIXME: No backend local eu mando query e pageSize
-  searchRepositories = (q, page, per_page) =>
+  searchRepositories = (query, page, pageSize) =>
     this.service({
       json: true,
       method: 'GET',
-      params: { q, page, per_page },
+      url: `${this.urlBaseList}`,
+      params: { query, page, pageSize },
       headers: { 'Content-Type': 'application/json' },
-      url: ` https://api.github.com/search/repositories`,
     }).then(response => response.data);
 
 }

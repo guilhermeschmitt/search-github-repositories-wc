@@ -1,5 +1,4 @@
-import qs from 'query-string';
-import { Col, Divider, Row, Avatar } from 'antd';
+import { Col, Divider, Row, Avatar, Skeleton } from 'antd';
 import React, { useEffect, useState, useCallback } from 'react';
 
 import {
@@ -26,10 +25,15 @@ import RepositoryList from '../../components/Repository/RepositoryList';
 
 function RepositoryPage(props) {
   const { repoResume } = useCommon();
-  const [pageInfo, setPageInfo] = useState({ repository: undefined, user: undefined, repositories: [] });
+
+  const [pageInfo, setPageInfo] = useState({
+    loading: true,
+    user: undefined,
+    repositories: [],
+    repository: undefined,
+  });
 
   useEffect(() => {
-
     async function findPageInfo() {
       const { userName, repoName } = props.match.params;
       try {
@@ -39,9 +43,10 @@ function RepositoryPage(props) {
           UserService.getUserRepositories(userName, 1, 10)
         ]);
 
-        setPageInfo({ repository, user, repositories });
+        setPageInfo({ repository, user, repositories, loading: false, });
       } catch (error) {
         alert(error);
+        setPageInfo(prevState => ({ ...prevState, loading: false }));
       }
     }
 
@@ -53,9 +58,10 @@ function RepositoryPage(props) {
           UserService.getUserRepositories(userName, 1, 10)
         ])
 
-        setPageInfo({ repositories, user, repository: repoResume })
+        setPageInfo({ repositories, user, repository: repoResume, loading: false })
       } catch (error) {
         alert(error);
+        setPageInfo(prevState => ({ ...prevState, loading: false }));
       }
     }
 
@@ -63,16 +69,17 @@ function RepositoryPage(props) {
       findPageInfo();
     else
       findUserRepositories();
-  }, [repoResume]);
+  }, []);
 
   const onChangePage = useCallback(async (page, pageSize) => {
     try {
       const { userName } = props.match.params;
       const value = await UserService.getUserRepositories(userName, page, pageSize);
 
-      setPageInfo(prevState => ({ ...prevState, repositories: value }));
+      setPageInfo(prevState => ({ ...prevState, repositories: value, loading: false }));
     } catch (error) {
       alert(error);
+      setPageInfo(prevState => ({ ...prevState, loading: false }));
     }
   }, []);
 
@@ -83,10 +90,20 @@ function RepositoryPage(props) {
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
         <Col span={6}>
           <Profile>
-            <Avatar
-              size={128}
-              src={pageInfo?.repository?.owner?.avatar_url}
-            />
+            {
+              pageInfo.loading &&
+              <Skeleton.Avatar
+                active
+                size={128}
+                shape='circle'
+              />
+            } {
+              !pageInfo.loading &&
+              <Avatar
+                size={128}
+                src={pageInfo?.repository?.owner?.avatar_url}
+              />
+            }
             <div>
               <Name>
                 {pageInfo?.user?.name}
@@ -98,92 +115,100 @@ function RepositoryPage(props) {
           </Profile>
         </Col>
         <Col span={18}>
-          <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-            <IconColumn span={4}>
-              <FollowerIcon />
-              <IconInfo
-                value={pageInfo?.repository?.forks_count || 0}
-                label='Forks'
-              />
-            </IconColumn>
-            <IconColumn span={4}>
-              <FollowerIcon />
-              <IconInfo
-                value={pageInfo?.repository?.subscribers_count || 0}
-                label='Followers'
-              />
-            </IconColumn>
-            <IconColumn span={4}>
-              <StarIcon />
-              <IconInfo
-                value={pageInfo?.repository?.stargazers_count || 0}
-                label='Stars'
-              />
-            </IconColumn>
-            <IconColumn span={4}>
-              <WatcherIcon />
-              <IconInfo
-                value={pageInfo?.repository?.watchers_count || 0}
-                label='Watchers'
-              />
-            </IconColumn>
-            <IconColumn span={4}>
-              <IssueIcon />
-              <IconInfo
-                value={pageInfo?.repository?.open_issues_count || 0}
-                label='Open issues'
-              />
-            </IconColumn>
-            <IconColumn span={4}>
-              <FavIcon />
-              <span>
-                Favorite
+          {
+            pageInfo.loading &&
+            <Skeleton active />
+          } {
+            !pageInfo.loading &&
+            <>
+              <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+                <IconColumn span={4}>
+                  <FollowerIcon />
+                  <IconInfo
+                    value={pageInfo?.repository?.forks_count || 0}
+                    label='Forks'
+                  />
+                </IconColumn>
+                <IconColumn span={4}>
+                  <FollowerIcon />
+                  <IconInfo
+                    value={pageInfo?.repository?.subscribers_count || 0}
+                    label='Followers'
+                  />
+                </IconColumn>
+                <IconColumn span={4}>
+                  <StarIcon />
+                  <IconInfo
+                    value={pageInfo?.repository?.stargazers_count || 0}
+                    label='Stars'
+                  />
+                </IconColumn>
+                <IconColumn span={4}>
+                  <WatcherIcon />
+                  <IconInfo
+                    value={pageInfo?.repository?.watchers_count || 0}
+                    label='Watchers'
+                  />
+                </IconColumn>
+                <IconColumn span={4}>
+                  <IssueIcon />
+                  <IconInfo
+                    value={pageInfo?.repository?.open_issues_count || 0}
+                    label='Open issues'
+                  />
+                </IconColumn>
+                <IconColumn span={4}>
+                  <FavIcon />
+                  <span>
+                    Favorite
               </span>
-            </IconColumn>
-          </Row>
-          <Row
-            gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
-            style={{ marginTop: '10px' }}
-          >
-            <NameColumn span={24}>
-              <span>
-                {pageInfo?.repository?.name || 'Uninformed.'}
-              </span>
-            </NameColumn>
-          </Row>
-          <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-            <InfoColumn span={24}>
-              <span>
-                Created at {
-                  pageInfo?.repository?.created_at
-                    ? formatDateToDateString(pageInfo.repository.created_at)
-                    : 'Uninformed.'
-                }
-              </span>
-            </InfoColumn>
-          </Row>
-          <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-            <Descriptioncolumn span={20}>
-              <span>
-                {pageInfo?.repository?.description || 'Uninformed.'}
-              </span>
-            </Descriptioncolumn>
-          </Row>
-          <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} style={{ marginTop: '10px' }}>
-            <InfoColumn span={4}>
-              <div style={{ display: 'flex', alignItems: 'center' }}>
-                <Language className={`${languageClass}`} />
-                <span>
-                  {pageInfo?.repository?.language || 'Other'}
-                </span>
-              </div>
-            </InfoColumn>
-            <InfoColumn span={4}>
-              <span>
-                {pageInfo?.repository?.license?.name || 'No license specified'}
-              </span>
-            </InfoColumn>
-          </Row>
+                </IconColumn>
+              </Row>
+              <Row
+                gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
+                style={{ marginTop: '10px' }}
+              >
+                <NameColumn span={24}>
+                  <span>
+                    {pageInfo?.repository?.name || 'Uninformed.'}
+                  </span>
+                </NameColumn>
+              </Row>
+              <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+                <InfoColumn span={24}>
+                  <span>
+                    Created at {
+                      pageInfo?.repository?.created_at
+                        ? formatDateToDateString(pageInfo.repository.created_at)
+                        : 'Uninformed.'
+                    }
+                  </span>
+                </InfoColumn>
+              </Row>
+              <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+                <Descriptioncolumn span={20}>
+                  <span>
+                    {pageInfo?.repository?.description || 'Uninformed.'}
+                  </span>
+                </Descriptioncolumn>
+              </Row>
+              <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} style={{ marginTop: '10px' }}>
+                <InfoColumn span={4}>
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <Language className={`${languageClass}`} />
+                    <span>
+                      {pageInfo?.repository?.language || 'Other'}
+                    </span>
+                  </div>
+                </InfoColumn>
+                <InfoColumn span={4}>
+                  <span>
+                    {pageInfo?.repository?.license?.name || 'No license specified'}
+                  </span>
+                </InfoColumn>
+              </Row>
+            </>
+          }
           <Divider />
           <Row>
             <Title span={24}>
@@ -194,8 +219,13 @@ function RepositoryPage(props) {
             <Col span={24}>
               <RepositoryList
                 onChange={onChangePage}
-                data={pageInfo?.repositories}
                 total={pageInfo?.user?.public_repos}
+                loading={pageInfo.loading}
+                data={
+                  pageInfo.loading
+                    ? [...new Array(10)].map(() => ({ loading: true }))
+                    : pageInfo?.repositories
+                }
               />
             </Col>
           </Row>
@@ -215,9 +245,5 @@ const IconInfo = ({ value, label }) => (
     </span>
   </>
 )
-
-// Ao clicar sobre um dos resultados,os istema deve apresentar mais detalhes a respeito do repositório,
-// incluindo também o número de ​issues abertas, a linguagem principal do projeto, data da criação do projeto e
-// uma listagem de outros repositórios do mesmo autor.
 
 export default RepositoryPage;

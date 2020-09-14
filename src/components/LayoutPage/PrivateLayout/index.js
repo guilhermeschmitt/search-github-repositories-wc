@@ -6,19 +6,22 @@ import useCommon from '../../../hooks/Common';
 import { ContainerLayout, LayoutContent } from './styles';
 
 function PrivateLayout(props) {
-  const { handleThemeName } = useCommon();
+  const { handleThemeName, loading } = useCommon();
+
+  if (loading)
+    return <div>Carregando...</div>
 
   return (
-      <ContainerLayout>
-        <Header
-          history={props.history}
-          setThemeName={handleThemeName}
-          renderSearchHeader={props.renderSearchHeader}
-        />
-        <LayoutContent>
-          {React.cloneElement(props.children, {})}
-        </LayoutContent>
-      </ContainerLayout>
+    <ContainerLayout>
+      <Header
+        history={props.history}
+        setThemeName={handleThemeName}
+        renderSearchHeader={props.renderSearchHeader}
+      />
+      <LayoutContent>
+        {React.cloneElement(props.children, {})}
+      </LayoutContent>
+    </ContainerLayout>
   )
 }
 

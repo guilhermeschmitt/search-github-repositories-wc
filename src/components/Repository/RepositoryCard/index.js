@@ -1,4 +1,3 @@
-import { Skeleton } from 'antd';
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 
@@ -15,7 +14,8 @@ import {
   Content,
   ContentInfo,
   StarIcon,
-  Language
+  Language,
+  SkeletonWrapper
 } from './styles';
 
 function RepositoryCard({ repository, history }) {
@@ -42,7 +42,12 @@ function RepositoryCard({ repository, history }) {
   }
 
   return (
-    <Skeleton loading={repository.loading} active avatar>
+    <SkeletonWrapper
+      active
+      width={300}
+      avatar
+      loading={repository.loading}
+    >
       <Container>
         <Header>
           <RepositoryIcon />
@@ -87,7 +92,7 @@ function RepositoryCard({ repository, history }) {
           </ContentInfo>
         </Content>
       </Container>
-    </Skeleton>
+    </SkeletonWrapper>
   )
 }
 

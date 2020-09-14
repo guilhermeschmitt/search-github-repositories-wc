@@ -2,27 +2,25 @@ import Service from './Service';
 
 class UserService {
 
-  urlBase = 'TODO:';
-  urlBaseList = 'TODO:';
+  urlBase = '/user';
 
   service = Service.getInstance();
 
-  //FIXME: No back-end local eu mando pageSize
   getUserRepositories = (userName, page, pageSize) =>
     this.service({
       json: true,
       method: 'GET',
-      params: { page, per_page: pageSize },
+      params: { page, pageSize },
       headers: { 'Content-Type': 'application/json' },
-      url: ` https://api.github.com/users/${userName}/repos`,
+      url: `${this.urlBase}/${userName}/repositories`,
     }).then(response => response.data);
 
   getUserInfo = userName =>
     this.service({
       json: true,
       method: 'GET',
+      url: `${this.urlBase}/${userName}`,
       headers: { 'Content-Type': 'application/json' },
-      url: ` https://api.github.com/users/${userName}`,
     }).then(response => response.data);
 
 }

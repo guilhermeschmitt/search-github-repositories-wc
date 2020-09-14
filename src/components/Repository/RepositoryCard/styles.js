@@ -1,3 +1,4 @@
+import { Skeleton } from 'antd';
 import styled from 'styled-components';
 import { BookOutlined, StarOutlined } from '@ant-design/icons';
 
@@ -87,5 +88,14 @@ export const Language = styled.div`
     }
     &.typescript {
       background: var(--typescript);
+    }
+`;
+
+export const SkeletonWrapper = styled(Skeleton)`
+    margin-bottom: 30px;
+
+    .ant-skeleton-content {
+      min-width: 500px;
+      max-width: 800px;
     }
 `;

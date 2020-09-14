@@ -19,8 +19,6 @@ function App() {
   const { themeName } = useCommon();
   const currentTheme = themes[themeName];
 
-  //FIXME: Acho que vou tirar aquele spin e aquele loading do common
-
   return (
     <ThemeProvider theme={currentTheme}>
       <Switch>

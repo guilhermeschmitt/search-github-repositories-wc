@@ -4,17 +4,15 @@ import { Empty, Pagination } from 'antd';
 import { RepoList } from './styles';
 import RepositoryCard from '../RepositoryCard';
 
-function RepositoryList({ total, data, onChange }) {
-  if (data.length === 0)
+function RepositoryList({ total, data, onChange, loading }) {
+  if (data.length === 0 && !loading)
     return <Empty />;
 
   return (
     <RepoList
       dataSource={data}
       itemLayout='horizontal'
-      renderItem={item => (
-        <RepositoryCard repository={item} />
-      )}
+      renderItem={item => <RepositoryCard repository={item} />}
       loadMore={
         total &&
         <Pagination
