@@ -4,13 +4,22 @@ const CommonContext = createContext({});
 
 export const CommonProvider = ({ children }) => {
 
+  const [loading, setLoading] = useState(true);
   const [favorites, setFavorites] = useState([]);
   const [repoResume, setRepoResume] = useState({});
   const [themeName, setThemeName] = useState('light');
 
   useEffect(() => {
-    setFavorites(JSON.parse(localStorage.getItem('favorites')) || []);
-    setThemeName(localStorage.getItem('theme') || 'light');
+    function getLocalStorageItems() {
+      const favorites = localStorage.getItem('favorites');
+      const theme = localStorage.getItem('theme');
+
+      setFavorites(JSON.parse(favorites) || []);
+      setThemeName(theme || 'light');
+      setLoading(false);
+    }
+
+    getLocalStorageItems();
   }, [])
 
   const handleThemeName = () => {
@@ -34,15 +43,14 @@ export const CommonProvider = ({ children }) => {
   }
 
   const isFavorite = repository => {
-    //FIXME: Quando isso aqui é executado, não tem buscado ainda os favoritos;
-    let isPresent = favorites.find(el => el.id === repository.id);
-    return isPresent;
+    return favorites.find(el => el.id === repository.id) ? true : false;
   }
 
   return (
     <CommonContext.Provider
       value={{
         themeName,
+        loading,
         favorites,
         repoResume,
         isFavorite,

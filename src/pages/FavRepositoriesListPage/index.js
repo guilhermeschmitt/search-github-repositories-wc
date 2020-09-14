@@ -17,8 +17,8 @@ function FavRepositoriesListPage() {
       <Divider />
       <RepositoryList
         total={null}
-        data={favorites}
-        onChange={() => {}}
+        onChange={() => { }}
+        data={favorites.map(el => ({ ...el, favorite: true }))}
       />
     </Container>
   )

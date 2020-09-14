@@ -25,11 +25,10 @@ import RepositoryService from '../../services/RepositoryService';
 import RepositoryList from '../../components/Repository/RepositoryList';
 
 function RepositoryPage(props) {
-  const { repoResume } = useCommon();
+  const { repoResume, isFavorite, handleFavorites } = useCommon();
 
   const [pageInfo, setPageInfo] = useState({
     loading: true,
-    repoFav: true,
     user: undefined,
     repositories: [],
     repository: undefined,
@@ -39,14 +38,21 @@ function RepositoryPage(props) {
     async function findPageInfo() {
       const { userName, repoName } = props.match.params;
       try {
-        const [repository, user, repositories] = await Promise.all([
+        let [repository, user, repositories] = await Promise.all([
           RepositoryService.getRepository(userName, repoName),
           UserService.getUserInfo(userName),
           UserService.getUserRepositories(userName, 1, 10)
         ]);
 
-        //FIXME: repoFav
-        setPageInfo({ repoFav: true, repository, user, repositories, loading: false, });
+        repository = { ...repository, favorite: isFavorite(repository) }
+        repositories = repositories.map(el => ({ ...el, favorite: isFavorite(el) }));
+
+        setPageInfo({
+          user,
+          repository,
+          repositories,
+          loading: false,
+        });
       } catch (error) {
         message.error(error.message);
         setPageInfo(prevState => ({ ...prevState, loading: false }));
@@ -56,12 +62,19 @@ function RepositoryPage(props) {
     async function findUserRepositories() {
       try {
         const { userName } = props.match.params;
-        const [user, repositories] = await Promise.all([
+        let [user, repositories] = await Promise.all([
           UserService.getUserInfo(userName),
           UserService.getUserRepositories(userName, 1, 10)
         ])
 
-        setPageInfo({ repositories, user, repository: repoResume, loading: false })
+        repositories = repositories.map(el => ({ ...el, favorite: isFavorite(el) }));
+
+        setPageInfo({
+          user,
+          repositories,
+          loading: false,
+          repository: repoResume,
+        })
       } catch (error) {
         message.error(error.message);
         setPageInfo(prevState => ({ ...prevState, loading: false }));
@@ -81,7 +94,13 @@ function RepositoryPage(props) {
 
       const value = await UserService.getUserRepositories(userName, page, pageSize);
 
-      setPageInfo(prevState => ({ ...prevState, repositories: value, loading: false }));
+      let repositories = value.map(el => ({ ...el, favorite: isFavorite(el) }));
+
+      setPageInfo(prevState => ({
+        ...prevState,
+        repositories,
+        loading: false,
+      }));
     } catch (error) {
       message.error(error.message);
       setPageInfo(prevState => ({ ...prevState, loading: false }));
@@ -89,7 +108,12 @@ function RepositoryPage(props) {
   }, []);
 
   const handleFavorite = useCallback(() => {
-    alert("TODO:");
+    if (pageInfo.repository.favorite)
+      setPageInfo(prevState => ({ ...prevState, favorite: false }));
+    else
+      setPageInfo(prevState => ({ ...prevState, favorite: true }));
+
+    handleFavorites(pageInfo.repository);
   });
 
   const languageClass = pageInfo?.repository?.language ? pageInfo?.repository.language.toLowerCase() : 'other';
@@ -169,7 +193,7 @@ function RepositoryPage(props) {
                 <FavColumn
                   span={4}
                   onClick={handleFavorite}
-                  className={`${pageInfo.repoFav ? 'favorite' : ''}`}
+                  className={`${pageInfo?.repository?.favorite ? 'favorite' : ''}`}
                 >
                   <FavIcon />
                   <span>

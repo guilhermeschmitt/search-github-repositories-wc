@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import useCommon from '../../../hooks/Common';
@@ -20,11 +20,11 @@ import {
   FavoriteContainer
 } from './styles';
 
-function RepositoryCard({ repository, history }) {
+function RepositoryCard({ repository, favorite, history }) {
 
   const { handleFavorites, setRepoResume } = useCommon();
 
-  const [repoFav, setRepoFav] = useState(repository?.favorite || false);
+  const [repoFav, setRepoFav] = useState(favorite);
   const languageClass = repository?.language ? repository.language.toLowerCase() : 'other';
 
   function pushToResume() {
@@ -33,6 +33,10 @@ function RepositoryCard({ repository, history }) {
     setRepoResume(repository);
     history.push(Routes.repository.format(userName, repoName));
   }
+
+  useEffect(() => {
+    setRepoFav(favorite);
+  }, [favorite]);
 
   function handleFavorite() {
     if (repoFav)

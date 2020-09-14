@@ -25,8 +25,6 @@ function App() {
       EXPLICAR COMO RODA O SISTEMA
 
     TODO: BUGS
-      Autenticação pra não da problema de rating
-      Não verifica se repositório está favoritado ou não
       Quando tento buscar por exemplo o repo .github do facebook da erro.
 
     TODO: OUTROS OPCIONAIS

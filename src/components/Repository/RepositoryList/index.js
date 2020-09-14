@@ -1,8 +1,8 @@
 import React from 'react'
 import { Empty } from 'antd';
 
-import { RepoList, PaginationWrapper } from './styles';
 import RepositoryCard from '../RepositoryCard';
+import { RepoList, PaginationWrapper } from './styles';
 
 function RepositoryList({ total, data, onChange, loading }) {
   if (data.length === 0 && !loading)
@@ -12,7 +12,12 @@ function RepositoryList({ total, data, onChange, loading }) {
     <RepoList
       dataSource={data}
       itemLayout='horizontal'
-      renderItem={item => <RepositoryCard repository={item} />}
+      renderItem={item => (
+        <RepositoryCard
+          repository={item}
+          favorite={item.favorite}
+        />
+      )}
       loadMore={
         total &&
         <PaginationWrapper

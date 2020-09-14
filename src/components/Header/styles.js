@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { GithubOutlined, StarOutlined, BulbOutlined } from '@ant-design/icons';
+import { GithubOutlined, HeartOutlined, BulbOutlined } from '@ant-design/icons';
 import { Input } from 'antd';
 
 export const Container = styled.div`
@@ -62,7 +62,7 @@ export const TextButton = styled.span`
   }
 `;
 
-export const FavIcon = styled(StarOutlined)`
+export const FavIcon = styled(HeartOutlined)`
   svg {
     width: 20px;
     height: 20px;

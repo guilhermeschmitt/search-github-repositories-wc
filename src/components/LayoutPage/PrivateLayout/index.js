@@ -6,7 +6,11 @@ import useCommon from '../../../hooks/Common';
 import { ContainerLayout, LayoutContent } from './styles';
 
 function PrivateLayout(props) {
-  const { handleThemeName } = useCommon();
+  const { handleThemeName, loading } = useCommon();
+
+  if(loading)
+  return <div>CARREGANDO...</div>
+
   return (
     <ContainerLayout>
       <Header
