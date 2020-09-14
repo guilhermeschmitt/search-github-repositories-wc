@@ -1,0 +1,50 @@
+export const themes = {
+  light: {
+    red: '#d63031',
+    primary: '#fff',
+    gray: '#586069',
+    blue: '#0984e3',
+    black: '#1b1f23',
+    white: '#f5f6fa',
+    yellow: '#f1c40f',
+
+    logo: '#fff',
+    icon: '#6a737d',
+    link: '#0366d6',
+    username: '#666',
+    border: '#e1e4e8',
+    header: '#24292e',
+    input: '#3f4448',
+    inputsearch: '#fff',
+    paginationbg: '#fff',
+    paginationcolor: '#2d3436',
+
+    javascript: '#f1e05a',
+    typescript: '#2b7489',
+    'other-language': '#8257e5',
+  },
+  dark: {
+    red: '#d63031',
+    gray: '#afafaf',
+    blue: '#0984e3',
+    white: '#f5f6fa',
+    black: '#c6c6c6',
+    yellow: '#f1c40f',
+    primary: '#1D1D1D',
+
+    logo: '#fff',
+    icon: '#9b9b9b',
+    border: '#343434',
+    header: '#24292e',
+    input: '#3f4448',
+    username: '#9b9b9b',
+    inputsearch: '#3f4448',
+    paginationbg: '#3f4448',
+    link: 'rgb(79, 140, 201)',
+    paginationcolor: '#9b9b9b',
+
+    javascript: '#f1e05a',
+    typescript: '#2b7489',
+    'other-language': '#8257e5',
+  }
+}
