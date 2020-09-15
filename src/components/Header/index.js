@@ -29,21 +29,35 @@ function Header({ setThemeName, renderSearchHeader, history }) {
 
   return (
     <Container>
-      <GithubLogo onClick={() => history.push(Routes.searchRepository.path)} />
-      <SearchForm onSubmit={handleSubmit}>
+      <GithubLogo
+        id='headerGithubLogo'
+        onClick={() => history.push(Routes.searchRepository.path)}
+      />
+      <SearchForm
+        id='headerSearchForm'
+        onSubmit={handleSubmit}
+      >
         {
           renderSearchHeader &&
           <SearchInput
+            id='headerSearchInput'
             ref={seachInputHeader}
             placeholder="Enter Repository name..."
           />
         }
       </SearchForm>
       <HeaderActions>
-        <TextButton onClick={() => history.push(Routes.favRepositoriesList.path)}>
+        <TextButton
+          id='headerFavoriteButton'
+          onClick={() => history.push(Routes.favRepositoriesList.path)}
+        >
           <FavIcon /> Favorites
         </TextButton>
-        <ThemeIcon onClick={setThemeName} />
+        <ThemeIcon
+          id='headerThemeIcon'
+          title='Change theme'
+          onClick={setThemeName}
+        />
       </HeaderActions>
 
     </Container>

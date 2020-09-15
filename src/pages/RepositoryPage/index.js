@@ -201,6 +201,7 @@ function RepositoryPage(props) {
                 </IconColumn>
                 <FavColumn
                   span={4}
+                  id='repositoryFavorite'
                   onClick={handleFavorite}
                   className={`${pageInfo?.repository?.favorite ? 'favorite' : ''}`}
                 >

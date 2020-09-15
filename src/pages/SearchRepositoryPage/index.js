@@ -22,7 +22,7 @@ function SearchRepositoryPage(props) {
       <Text>
         <SearchIcon /> Enter the name of the repository you want to search below
       </Text>
-      <SearchAction>
+      <SearchAction onSubmit={search}>
         <StyledInput
           id='searchInput'
           ref={searchInput}

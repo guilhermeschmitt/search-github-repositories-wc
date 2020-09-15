@@ -21,6 +21,11 @@ export const themes = {
 
     javascript: '#f1e05a',
     typescript: '#2b7489',
+    node: '#00b894',
+    c: '#d63031',
+    html: '#81ecec',
+    css: '#0984e3',
+    php: '#e84393',
     'other-language': '#8257e5',
   },
   dark: {
@@ -45,6 +50,11 @@ export const themes = {
 
     javascript: '#f1e05a',
     typescript: '#2b7489',
+    node: '#00b894',
+    c: '#d63031',
+    html: '#81ecec',
+    css: '#0984e3',
+    php: '#e84393',
     'other-language': '#8257e5',
   }
 }
