@@ -58,12 +58,15 @@ function RepositoryCard({ repository, favorite, history, index }) {
         <Header>
           <div>
             <RepositoryIcon />
-            <TextLink onClick={pushToResume}>
+            <TextLink
+              id={`linkRepo${index}`}
+              onClick={pushToResume}
+            >
               {repository?.full_name}
             </TextLink>
           </div>
           <FavoriteContainer
-            id={`id${index}`}
+            id={`idFavorite${index}`}
             onClick={handleFavorite}
             className={`${repoFav ? 'favorite' : ''}`}
           >

@@ -20,7 +20,7 @@ export const SearchIcon = styled(SearchOutlined)`
   margin-right: 5px;
 `;
 
-export const SearchAction = styled.div`
+export const SearchAction = styled.form`
   display: flex;
   padding-top: 15px;
   align-items: center;
