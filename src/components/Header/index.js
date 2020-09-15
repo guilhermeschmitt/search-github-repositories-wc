@@ -22,7 +22,7 @@ function Header({ setThemeName, renderSearchHeader, history }) {
     const { value } = seachInputHeader.current.state;
 
     if (!value || value.trim() === '')
-      message.warning('Digite alguma coisa no campo de busca!');
+      message.warning('Type something in the search field');
     else
       history.push(`${Routes.repositoriesList.path}?q=${value}`);
   }

@@ -8,13 +8,16 @@ function SearchRepositoryPage(props) {
 
   const searchInput = useRef(null);
 
-  const search = useCallback(() => {
+  const search = useCallback((event) => {
     const { value } = searchInput.current.state;
 
-    if (!value || value.trim() === '')
+    if (!value || value.trim() === '') {
+      event.preventDefault();
       message.warning('Type something in the search field!');
-    else
+    }
+    else {
       props.history.push(`${Routes.repositoriesList.path}?q=${value}`);
+    }
   }, []);
 
   return (
